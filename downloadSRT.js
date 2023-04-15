@@ -1,3 +1,6 @@
+async function downloadSRT() {
+  await waitFor(30000); // 等待 30 秒以确保页面已经加载完成
+
 const waitFor = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function downloadSRT() {
