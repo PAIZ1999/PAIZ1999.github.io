@@ -17,6 +17,14 @@ setTimeout(() => {
 
   // 等待 5000 毫秒以确保下拉菜单已显示
   setTimeout(() => {
+    // 点击飞书文档选项
+    const feishuOption = Array.from(document.querySelectorAll('.ud__select__selector__selectItem.ud__textOverflow')).find(el => el.textContent.includes('飞书文档'));
+    if (feishuOption) {
+      feishuOption.click();
+    } else {
+      console.log('未找到飞书文档选项');
+    }
+
     // 点击 SRT 选项
     const srtOption = Array.from(document.querySelectorAll('.ud__select__list__item__content.ud__textOverflow')).find(el => el.textContent.includes('SRT'));
     if (srtOption) {
