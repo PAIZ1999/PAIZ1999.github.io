@@ -36,9 +36,9 @@ setTimeout(() => {
       const exportButton = document.querySelector('.ud__modal__footer__btns button.ud__button--filled-default');
       if (exportButton) {
         exportButton.click();
+        window.opener.postMessage('SRTDownloaded', '*');
       } else {
         console.log('未找到导出按钮');
       }
     }, 5000);
   }, 5000);
-window.opener.postMessage('SRTDownloaded', '*');
