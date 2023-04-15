@@ -41,3 +41,4 @@ setTimeout(() => {
       }
     }, 5000);
   }, 5000);
+window.opener.postMessage('SRTDownloaded', '*');
