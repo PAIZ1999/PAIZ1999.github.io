@@ -59,3 +59,8 @@ async function downloadSRT() {
     console.error('Failed to download SRT:', error);
   }
 }
+window.addEventListener('message', (event) => {
+  if (event.data === 'downloadSRT') {
+    downloadSRT();
+  }
+});
