@@ -1,62 +1,43 @@
-async function downloadSRT() {
-  await waitFor(30000); // 等待 30 秒以确保页面已经加载完成
-
-const waitFor = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-async function downloadSRT() {
-  // 找到并鼠标悬停在一个菜单的触发图标
-  const menuTrigger = document.querySelector('svg[data-icon="MoreOutlined"]');
-  if (!menuTrigger) {
-    console.error('无法找到菜单触发图标');
-    return;
-  }
-  menuTrigger.dispatchEvent(new MouseEvent('mouseover'));
-
-  await waitFor(500);
-
-  // 点击导出妙记选项
-  const exportOption = document.querySelector('.menu-item > span > svg[data-icon="ExportOutlined"]');
-  if (!exportOption) {
-    console.error('无法找到导出妙记选项');
-    return;
-  }
-  exportOption.click();
-
-  await waitFor(500);
-
-  // 点击飞书文档元素以打开下拉菜单
-  const feishuDocOption = document.querySelector('.ud__select__selector__selectItem');
-  if (!feishuDocOption) {
-    console.error('无法找到飞书文档选项');
-    return;
-  }
-  feishuDocOption.click();
-
-  await waitFor(500);
-
-  // 点击 SRT 选项
-  const srtOption = document.querySelector('.ud__select__list__item__content > span > span');
-  if (!srtOption) {
-    console.error('无法找到 SRT 选项');
-    return;
-  }
-  srtOption.click();
-
-  // 取消勾选包含说话人选项
-  const speakerCheckbox = document.querySelector('.ud__checkbox__input[aria-checked="true"]');
-  if (!speakerCheckbox) {
-    console.error('无法找到包含说话人的复选框');
-    return;
-  }
-  speakerCheckbox.click();
-
-  // 点击导出按钮
-  const exportButton = document.querySelector('.ud__button--filled.ud__button--filled-default.ud__button--size-md');
-  if (!exportButton) {
-    console.error('无法找到导出按钮');
-    return;
-  }
-  exportButton.click();
+// 点击触发下拉菜单的图标
+const dropdownTrigger = document.querySelector('div.detail-meeting-menu-btn');
+if (dropdownTrigger) {
+  dropdownTrigger.click();
+} else {
+  console.log('未找到下拉菜单触发图标');
 }
 
-downloadSRT();
+setTimeout(() => {
+  // 点击导出妙记选项
+  const exportOption = Array.from(document.querySelectorAll('.menu-item')).find(el => el.textContent.includes('导出妙记'));
+  if (exportOption) {
+    exportOption.click();
+  } else {
+    console.log('未找到导出妙记选项');
+  }
+   // 等待 500 毫秒以确保下拉菜单已显示
+    setTimeout(() => {
+      // 点击 SRT 选项
+      const srtOption = Array.from(document.querySelectorAll('.ud__select__list__item__content.ud__textOverflow')).find(el => el.textContent.includes('SRT'));
+      if (srtOption) {
+        srtOption.click();
+      } else {
+        console.log('未找到 SRT 选项');
+      }
+
+      // 取消勾选包含说话人选项
+      const includeSpeakerCheckbox = document.querySelector('span.ud__checkbox > input.ud__checkbox__input[aria-checked="true"]');
+      if (includeSpeakerCheckbox) {
+        includeSpeakerCheckbox.click();
+      } else {
+        console.log('未找到包含说话人复选框');
+      }
+
+      // 点击导出按钮
+      const exportButton = document.querySelector('.ud__modal__footer__btns button.ud__button--filled-default');
+      if (exportButton) {
+        exportButton.click();
+      } else {
+        console.log('未找到导出按钮');
+      }
+    }, 5000);
+  }, 5000);
